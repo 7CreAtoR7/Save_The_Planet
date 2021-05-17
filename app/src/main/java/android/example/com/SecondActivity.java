@@ -11,9 +11,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SecondActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_second);
         getSupportActionBar().hide();
 
@@ -41,4 +44,5 @@ public class SecondActivity extends AppCompatActivity {
         });
 
     }
+
 }

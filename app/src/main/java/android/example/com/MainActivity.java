@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,35 +17,43 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sPref;
 
     private EditText Name;
-    private TextView Info;
     private Button Login;
 
     final String SAVED_TEXT = "saved_text";
+
+    public static String savedText;
 
 
     private void saveUserName() {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
-        ed.putString(SAVED_TEXT, Name.getText().toString());
+        savedText = Name.getText().toString();
+        ed.putString(SAVED_TEXT, savedText);
         ed.apply();
-        Toast.makeText(MainActivity.this, "Сохраняем имя пользователя: " + Name.getText().toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "Сохраняем имя пользователя: " + savedText, Toast.LENGTH_SHORT).show();
     }
 
     private String isNewUser() {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String savedText = sPref.getString(SAVED_TEXT, "");
+        savedText = sPref.getString(SAVED_TEXT, "");
         Toast.makeText(MainActivity.this, "Загружаем имя пользователя: " + savedText, Toast.LENGTH_SHORT).show();
         return savedText;
     }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (!isNewUser().isEmpty()) { // ЕСЛИ НУЖНО ПОТЕСТИТЬ ПЕРВУЮ АКТИВНОСТЬ, УБЕРИ "!"
+    protected void onStart() {
+        super.onStart();
+        if (!isNewUser().isEmpty()) {
             Intent intent = new Intent(MainActivity.this, SecondActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().hide();
@@ -64,11 +71,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        saveUserName();
-    }
 
     private TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
@@ -90,8 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void validate(String userName) {
         saveUserName();
-        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-        startActivity(intent);
+        if (!isNewUser().isEmpty()) {
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            startActivity(intent);
+        }
 
     }
 
