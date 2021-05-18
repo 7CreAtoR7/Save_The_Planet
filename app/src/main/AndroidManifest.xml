@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginDemo">
-        <activity android:name=".Rating"></activity>
+        <activity android:name=".Itemactivity"></activity>
+        <activity android:name=".Rating" />
         <activity android:name=".Profile" />
         <activity android:name=".SecondActivity" />
         <activity android:name=".MainActivity">

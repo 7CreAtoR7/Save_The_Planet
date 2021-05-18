@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Itemactivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtitem"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:hint="Item Value"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mission_description"
+        android:layout_below="@id/txtitem"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="5dp"
+        android:text="На каком транспорте Вы чаще всего перемещаетесь?\nТут должен быть много текста задания, а внизу кнопка выполнил или нет"
+        android:textSize="21sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/coins_count_txt"
+        android:layout_below="@id/mission_description"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="5dp"
+        android:text="Количество очков за выполненное задание:"
+        android:textSize="18sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/coins_count"
+        android:layout_below="@id/mission_description"
+        android:layout_marginTop="72dp"
+        android:layout_marginLeft="265dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_complete_mission"
+        android:layout_below="@id/coins_count_txt"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="70dp"
+        android:padding="15dp"
+        android:text="Выполнил" />
+
+
+</RelativeLayout>

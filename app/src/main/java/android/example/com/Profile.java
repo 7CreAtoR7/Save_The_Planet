@@ -4,18 +4,87 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.w3c.dom.Text;
+
 public class Profile extends AppCompatActivity {
+
+    private static final String SAVED_MISSIONS = "";
+    private static final String SAVED_SCORES = "";
+    SharedPreferences sPref;
+
+    public static String missions_;
+    public static Integer missions;
+
+    public static String scores_;
+    public static Integer scores;
+
+
+    private Integer isNewUserWithNoMissions() { // If application launches first, there are 0 complete missions
+        sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        missions_ = sPref.getString(SAVED_MISSIONS, "");
+        if (missions_.isEmpty()) {
+            missions = 0;
+        } else {
+            missions = Integer.valueOf(missions_);
+        }
+        Toast.makeText(Profile.this, "Всего выполненных заданий: " + missions, Toast.LENGTH_SHORT).show();
+
+        return missions;
+    }
+
+    private Integer isNewUserWithNoScores() { // If application launches first, there are 0 scores
+        sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        scores_ = sPref.getString(SAVED_SCORES, "");
+        if (scores_.isEmpty()) {
+            scores = 0;
+        } else {
+            scores = Integer.valueOf(scores_);
+        }
+        Toast.makeText(Profile.this, "Всего очков: " + scores, Toast.LENGTH_SHORT).show();
+
+        return scores;
+    }
+
+
+//    private void saveUserScores() { // Save user's scores
+//        sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+//        SharedPreferences.Editor ed = sPref.edit();
+//        scores
+//        savedText = Name.getText().toString();
+//        ed.putString(SAVED_TEXT, savedText);
+//        ed.apply();
+//        Toast.makeText(MainActivity.this, "Сохраняем имя пользователя: " + savedText, Toast.LENGTH_SHORT).show();
+//    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        TextView count_done_challengers = (TextView) findViewById(R.id.count_done_ex);
+        count_done_challengers.setText(String.valueOf(isNewUserWithNoMissions()));
+
+        TextView name_of_level = (TextView) findViewById(R.id.name_level);
+        if (isNewUserWithNoMissions() < 10) {
+            name_of_level.setText("«Новичок»");
+        } else if (isNewUserWithNoMissions() >= 10 && isNewUserWithNoMissions() < 20) {
+            name_of_level.setText("«Борец за природу»");
+        } else if (isNewUserWithNoMissions() >= 20){
+            name_of_level.setText("«Эколог»");
+        }
+
+        TextView count_scores = (TextView) findViewById(R.id.count_exp);
+        count_scores.setText((String.valueOf(isNewUserWithNoScores())));
 
         TextView username = (TextView) findViewById(R.id.user_name);
         String name_input = String.valueOf(MainActivity.savedText);

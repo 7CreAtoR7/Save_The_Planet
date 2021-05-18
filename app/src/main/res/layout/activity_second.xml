@@ -6,13 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".SecondActivity">
 
+
     <TextView
+        android:id="@+id/missions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Challenges"
-        android:textSize="50sp"
+        android:text="Список задач"
+        android:textColor="#000"
+        android:layout_below="@+id/imageview_profile"
+        android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:layout_centerInParent="true"/>
+        android:textSize="25sp"
+        android:layout_marginTop="5dp"/>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/missions"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="60dp"
+        android:id="@+id/listview1"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
