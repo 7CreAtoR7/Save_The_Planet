@@ -4,20 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SecondActivity extends AppCompatActivity {
 
     ListView listView;
+
 
 
 
@@ -31,11 +30,13 @@ public class SecondActivity extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.listview1);
         String []listviewitems=new String[]{
 
-                "Задание #1", "Задание #2", "Задание #3", "Задание #4", "Задание #5", "Задание #6", "Задание #7", "Задание #8", "Задание #9", "Задание #10", "Задание #11", "Задание #12", "Задание #13", "Задание #14", "Задание #15"
+                "Задание #1", "Задание #2", "Задание #3", "Задание #4", "Задание #5", "Задание #6", "Задание #7", "Задание #8", "Задание #9", "Задание #10"
         };
 
         ArrayAdapter<String>adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2, android.R.id.text1,listviewitems);
         listView.setAdapter(adapter);
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

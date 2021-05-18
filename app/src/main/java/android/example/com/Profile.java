@@ -54,16 +54,6 @@ public class Profile extends AppCompatActivity {
     }
 
 
-//    private void saveUserScores() { // Save user's scores
-//        sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-//        SharedPreferences.Editor ed = sPref.edit();
-//        scores
-//        savedText = Name.getText().toString();
-//        ed.putString(SAVED_TEXT, savedText);
-//        ed.apply();
-//        Toast.makeText(MainActivity.this, "Сохраняем имя пользователя: " + savedText, Toast.LENGTH_SHORT).show();
-//    }
-
 
 
     @Override
