@@ -16,8 +16,8 @@ import org.w3c.dom.Text;
 
 public class Profile extends AppCompatActivity {
 
-    private static final String SAVED_MISSIONS = "";
-    private static final String SAVED_SCORES = "";
+    private static final String SAVED_COMPLETE_MISSIONS = "";
+    private static final String SAVED_ALL_SCORES = "";
     SharedPreferences sPref;
 
     public static String missions_;
@@ -28,21 +28,21 @@ public class Profile extends AppCompatActivity {
 
 
     private Integer isNewUserWithNoMissions() { // If application launches first, there are 0 complete missions
-        sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        missions_ = sPref.getString(SAVED_MISSIONS, "");
+        sPref = getSharedPreferences("MyCountMissions", MODE_PRIVATE);
+        missions_ = sPref.getString(SAVED_COMPLETE_MISSIONS, "");
         if (missions_.isEmpty()) {
             missions = 0;
         } else {
             missions = Integer.valueOf(missions_);
         }
-        Toast.makeText(Profile.this, "Всего выполненных заданий: " + missions, Toast.LENGTH_SHORT).show();
+        Toast.makeText(Profile.this, "Всего выполненных заданий Profile: " + missions, Toast.LENGTH_SHORT).show();
 
         return missions;
     }
 
     private Integer isNewUserWithNoScores() { // If application launches first, there are 0 scores
-        sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        scores_ = sPref.getString(SAVED_SCORES, "");
+        sPref = getSharedPreferences("MyCountScores", MODE_PRIVATE);
+        scores_ = sPref.getString(SAVED_ALL_SCORES, "");
         if (scores_.isEmpty()) {
             scores = 0;
         } else {
@@ -65,11 +65,11 @@ public class Profile extends AppCompatActivity {
         count_done_challengers.setText(String.valueOf(isNewUserWithNoMissions()));
 
         TextView name_of_level = (TextView) findViewById(R.id.name_level);
-        if (isNewUserWithNoMissions() < 10) {
+        if (isNewUserWithNoMissions() < 5) {
             name_of_level.setText("«Новичок»");
-        } else if (isNewUserWithNoMissions() >= 10 && isNewUserWithNoMissions() < 20) {
+        } else if (isNewUserWithNoMissions() >= 5 && isNewUserWithNoMissions() < 7) {
             name_of_level.setText("«Борец за природу»");
-        } else if (isNewUserWithNoMissions() >= 20){
+        } else if (isNewUserWithNoMissions() >= 7){
             name_of_level.setText("«Эколог»");
         }
 
