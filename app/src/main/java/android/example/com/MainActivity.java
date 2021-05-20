@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -114,38 +117,65 @@ public class MainActivity extends AppCompatActivity {
         Call<List<Post2>> call = jsonPlaceHolderApi2.getPosts();
 
         call.enqueue(new Callback<List<Post2>>() {
-                         @Override
-                         public void onResponse(Call<List<Post2>> call, Response<List<Post2>> response) {
-                             if (!response.isSuccessful()) {
-                                 textViewResult.setText("Code: " + response.code());
-                                 return;
-                             }
+            @Override
+            public void onResponse(Call<List<Post2>> call, Response<List<Post2>> response) {
+                if (!response.isSuccessful()) {
+                    textViewResult.setText("Code: " + response.code());
+                    return;
+                }
 
-                             List<Post2> posts = response.body();
+                List<Post2> posts = response.body();
 
-                             for (Post2 post : posts) {
-                                 String db_name = post.getName();
-                                 System.out.println(db_name);
-                                 if (db_name.toLowerCase().equals(userName.toLowerCase())) {
-                                     textViewResult.setText("Такое имя уже занято");
-                                     break;
-                                 } else {
-                                     saveUserName();
-                                     if (!isNewUser().isEmpty()) {
-                                         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                                         startActivity(intent);
-                                     }
-                                 }
+                for (Post2 post : posts) {
+                    String db_name = post.getName();
+                    System.out.println(db_name);
+                    if (db_name.toLowerCase().equals(userName.toLowerCase())) {
+                        textViewResult.setText("Такое имя уже занято");
+                        break;
+                    } else {
+                        saveUserName();
 
-                             }
+                        // добавление пользователя на сервер
+                        Gson gson = new GsonBuilder()
+                                .setLenient()
+                                .create();
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl("https://young-reaches-53543.herokuapp.com/")
+                                .addConverterFactory(GsonConverterFactory.create(gson))
+                                .build();
 
-                         }
+                        UsersInfo controller = retrofit.create(UsersInfo.class);
 
-                         @Override
-                         public void onFailure(Call<List<Post2>> call, Throwable t) {
-                             textViewResult.setText(t.getMessage());
-                         }
-                     });
+                        Call<Boolean> call2 = controller.add(new Users(userName, 0));
+                        call2.enqueue(new Callback<Boolean>() {
+                            @Override
+                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                Boolean result = response.body();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Boolean> call, Throwable t) {
+
+                            }
+                        });
+
+
+                        if (!isNewUser().isEmpty()) {
+                            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                            startActivity(intent);
+                        } // логинимся и добавляемся в бд
+                        break;
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post2>> call, Throwable t) {
+                textViewResult.setText(t.getMessage());
+            }
+        });
 
 
     }
