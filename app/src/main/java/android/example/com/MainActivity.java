@@ -10,9 +10,21 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+
 public class MainActivity extends AppCompatActivity {
+    private TextView textViewResult;
+
 
     SharedPreferences sPref;
 
@@ -90,12 +102,51 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void validate(String userName) {
-        saveUserName();
-        if (!isNewUser().isEmpty()) {
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-            startActivity(intent);
-        }
+    private void validate(String userName) { // получим с сервера всех пользователей и проверим, есть ли уже с таким именем
+        textViewResult = findViewById(R.id.is_new_user);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://young-reaches-53543.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderApi2 jsonPlaceHolderApi2 = retrofit.create(JsonPlaceHolderApi2.class);
+
+        Call<List<Post2>> call = jsonPlaceHolderApi2.getPosts();
+
+        call.enqueue(new Callback<List<Post2>>() {
+                         @Override
+                         public void onResponse(Call<List<Post2>> call, Response<List<Post2>> response) {
+                             if (!response.isSuccessful()) {
+                                 textViewResult.setText("Code: " + response.code());
+                                 return;
+                             }
+
+                             List<Post2> posts = response.body();
+
+                             for (Post2 post : posts) {
+                                 String db_name = post.getName();
+                                 System.out.println(db_name);
+                                 if (db_name.toLowerCase().equals(userName.toLowerCase())) {
+                                     textViewResult.setText("Такое имя уже занято");
+                                     break;
+                                 } else {
+                                     saveUserName();
+                                     if (!isNewUser().isEmpty()) {
+                                         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                                         startActivity(intent);
+                                     }
+                                 }
+
+                             }
+
+                         }
+
+                         @Override
+                         public void onFailure(Call<List<Post2>> call, Throwable t) {
+                             textViewResult.setText(t.getMessage());
+                         }
+                     });
+
 
     }
 
