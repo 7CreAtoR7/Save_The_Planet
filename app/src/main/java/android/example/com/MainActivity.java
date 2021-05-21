@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,7 +29,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     private TextView textViewResult;
 
-    public boolean is_new_username=false;
+    public boolean is_new_username;
+
+    private static List<String> list_names = new ArrayList<>();
 
 
     SharedPreferences sPref;
@@ -127,19 +130,19 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 List<Post2> posts = response.body();
-
-                for (Post2 post : posts) {
-                    String db_name = post.getName();
-                    if (db_name.equals(userName)) {
-                        is_new_username=false;
-                    } else {
-                        is_new_username = true;
-                    }
-
-
+                // добавим имена в отдельный список
+                for (Post2 post_in_list : posts) {
+                    String db_name = post_in_list.getName();
+                    list_names.add(db_name);
                 }
 
-                if (is_new_username) {
+                System.out.println(list_names);
+                System.out.println("В списке имя " + userName + ":" + list_names.contains(userName));
+
+
+                if (list_names.contains(userName)) {
+                    textViewResult.setText("Такое имя уже занято");
+                } else {
                     saveUserName();
 
                     // добавление пользователя на сервер
@@ -170,11 +173,8 @@ public class MainActivity extends AppCompatActivity {
                     if (!isNewUser().isEmpty()) {
                         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                         startActivity(intent);
-                    } // логинимся и добавляемся в бд
-                } else {
-                    textViewResult.setText("Такое имя уже занято");
+                    }
                 }
-
             }
 
             @Override
