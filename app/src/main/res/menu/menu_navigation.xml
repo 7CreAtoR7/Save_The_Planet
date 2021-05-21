@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/profile"
-        android:title="Profile"
+        android:title="Профиль"
         android:icon="@drawable/ic_profile"/>
 
     <item
         android:id="@+id/challenges"
-        android:title="Challenges"
+        android:title="Задания"
         android:icon="@drawable/ic_challenges"/>
 
     <item
         android:id="@+id/rating"
-        android:title="Rating"
+        android:title="Рейтинг"
         android:icon="@drawable/ic_rating"/>
 
 

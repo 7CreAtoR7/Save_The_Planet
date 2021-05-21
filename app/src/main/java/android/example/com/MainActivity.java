@@ -28,6 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     private TextView textViewResult;
 
+    public boolean is_new_username=false;
+
 
     SharedPreferences sPref;
 
@@ -128,45 +130,49 @@ public class MainActivity extends AppCompatActivity {
 
                 for (Post2 post : posts) {
                     String db_name = post.getName();
-                    System.out.println(db_name);
-                    if (db_name.toLowerCase().equals(userName.toLowerCase())) {
-                        textViewResult.setText("Такое имя уже занято");
-                        break;
+                    if (db_name.equals(userName)) {
+                        is_new_username=false;
                     } else {
-                        saveUserName();
-
-                        // добавление пользователя на сервер
-                        Gson gson = new GsonBuilder()
-                                .setLenient()
-                                .create();
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("https://young-reaches-53543.herokuapp.com/")
-                                .addConverterFactory(GsonConverterFactory.create(gson))
-                                .build();
-
-                        UsersInfo controller = retrofit.create(UsersInfo.class);
-
-                        Call<Boolean> call2 = controller.add(new Users(userName, 0));
-                        call2.enqueue(new Callback<Boolean>() {
-                            @Override
-                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                Boolean result = response.body();
-                            }
-
-                            @Override
-                            public void onFailure(Call<Boolean> call, Throwable t) {
-
-                            }
-                        });
-
-
-                        if (!isNewUser().isEmpty()) {
-                            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                            startActivity(intent);
-                        } // логинимся и добавляемся в бд
-                        break;
+                        is_new_username = true;
                     }
 
+
+                }
+
+                if (is_new_username) {
+                    saveUserName();
+
+                    // добавление пользователя на сервер
+                    Gson gson = new GsonBuilder()
+                            .setLenient()
+                            .create();
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("https://young-reaches-53543.herokuapp.com/")
+                            .addConverterFactory(GsonConverterFactory.create(gson))
+                            .build();
+
+                    UsersInfo controller = retrofit.create(UsersInfo.class);
+
+                    Call<Boolean> call2 = controller.add(new Users(userName, 0));
+                    call2.enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            Boolean result = response.body();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+
+                        }
+                    });
+
+
+                    if (!isNewUser().isEmpty()) {
+                        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                        startActivity(intent);
+                    } // логинимся и добавляемся в бд
+                } else {
+                    textViewResult.setText("Такое имя уже занято");
                 }
 
             }

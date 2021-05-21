@@ -9,6 +9,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Itemactivity extends AppCompatActivity implements DialogApp.DialogAppListener{
 
     private static final String SAVED_MISS1 = "";
@@ -505,6 +514,17 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
     }
 
 
+    Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://young-reaches-53543.herokuapp.com/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+
+    UsersInfoUpdate controller =retrofit.create(UsersInfoUpdate.class);
+
+
 
     @Override
     public void applyTexts() {
@@ -521,7 +541,22 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 100;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
+
             Toast.makeText(Itemactivity.this, "первое готово, заданий: " + c, Toast.LENGTH_SHORT).show();
+
+
         } else if (name_for_save.equals("Задание #2")) {
             is_complete_mis.setText("Задание выполнено!");
             saveCompletedMission2();
@@ -531,6 +566,18 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 222;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
             Toast.makeText(Itemactivity.this, "второе готово, заданий: " + c, Toast.LENGTH_SHORT).show();
         } else if (name_for_save.equals("Задание #3")) {
             is_complete_mis.setText("Задание выполнено!");
@@ -541,6 +588,18 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 222;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
             Toast.makeText(Itemactivity.this, "третье готово, заданий: " + c, Toast.LENGTH_SHORT).show();
         } else if (name_for_save.equals("Задание #4")) {
             is_complete_mis.setText("Задание выполнено!");
@@ -551,6 +610,18 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 400;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
             Toast.makeText(Itemactivity.this, "четвёртое готово, заданий: " + c, Toast.LENGTH_SHORT).show();
         } else if (name_for_save.equals("Задание #5")) {
             is_complete_mis.setText("Задание выполнено!");
@@ -561,6 +632,18 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 500;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
             Toast.makeText(Itemactivity.this, "пятое готово, заданий: " + c, Toast.LENGTH_SHORT).show();
         }
         else if (name_for_save.equals("Задание #6")) {
@@ -572,6 +655,18 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 600;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
             Toast.makeText(Itemactivity.this, "шестое готово, заданий: " + c, Toast.LENGTH_SHORT).show();
         }
         else if (name_for_save.equals("Задание #7")) {
@@ -583,6 +678,18 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 777;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
             Toast.makeText(Itemactivity.this, "седьмое готово, заданий: " + c, Toast.LENGTH_SHORT).show();
         }
         else if (name_for_save.equals("Задание #8")) {
@@ -594,6 +701,18 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 800;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
             Toast.makeText(Itemactivity.this, "восьмое готово, заданий: " + c, Toast.LENGTH_SHORT).show();
         }
         else if (name_for_save.equals("Задание #9")) {
@@ -605,6 +724,18 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 900;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
             Toast.makeText(Itemactivity.this, "девятое готово, заданий: " + c, Toast.LENGTH_SHORT).show();
         }
         else if (name_for_save.equals("Задание #10")) {
@@ -616,6 +747,18 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             int c_scores = getCountScores();
             c_scores += 1000;
             saveUserScores(c_scores);
+
+            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean result=response.body();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                }
+            });
             Toast.makeText(Itemactivity.this, "десятое готово, заданий: " + c, Toast.LENGTH_SHORT).show();
         }
     }

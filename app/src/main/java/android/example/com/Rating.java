@@ -23,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Rating extends AppCompatActivity {
     private TextView textViewResult;
+    public static Integer count_users = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,14 @@ public class Rating extends AppCompatActivity {
                 }
 
                 List<Post> posts = response.body();
+                textViewResult.setText(String.valueOf(MainActivity.savedText));
 
                 for (Post post : posts) {
+                    count_users ++;
                     String content = "";
                     content += "Name: " + post.getName() + "\n";
                     content += "Score: " + post.getScore() + "\n\n";
-
-                    textViewResult.append(content);
+                    if (count_users <= 100) textViewResult.append(content);
                 }
             }
 
