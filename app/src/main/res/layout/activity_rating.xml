@@ -6,7 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".Rating">
 
+    <TextView
+        android:id="@+id/missions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ТОП-10 игроков"
+        android:textColor="#000"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginTop="5dp"/>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/internet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/no_connection"
+        android:layout_below="@+id/missions"/>
+
+
+
+
+    <TextView
+        android:id="@+id/no_connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_marginTop="60dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/list_players"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="56dp"
+        android:layout_below="@+id/position_in_top"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,7 +67,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
     </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/position_in_top"
+        android:layout_below="@+id/missions"
+        android:paddingTop="15dp"
+        android:layout_centerHorizontal="true"
+        />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

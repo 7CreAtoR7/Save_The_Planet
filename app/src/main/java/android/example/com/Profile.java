@@ -5,16 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.w3c.dom.Text;
-
 public class Profile extends AppCompatActivity {
+    Animation anim;
 
     private static final String SAVED_COMPLETE_MISSIONS = "";
     private static final String SAVED_ALL_SCORES = "";
@@ -35,7 +38,6 @@ public class Profile extends AppCompatActivity {
         } else {
             missions = Integer.valueOf(missions_);
         }
-        Toast.makeText(Profile.this, "Всего выполненных заданий Profile: " + missions, Toast.LENGTH_SHORT).show();
 
         return missions;
     }
@@ -48,18 +50,25 @@ public class Profile extends AppCompatActivity {
         } else {
             scores = Integer.valueOf(scores_);
         }
-        Toast.makeText(Profile.this, "Всего очков: " + scores, Toast.LENGTH_SHORT).show();
 
         return scores;
     }
 
+
+    public void go(View view) {
+        view.startAnimation(anim);
+    }
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_profile);
+
+        anim = AnimationUtils.loadAnimation(this, R.anim.cloud_anim);
+
 
         TextView count_done_challengers = (TextView) findViewById(R.id.count_done_ex);
         count_done_challengers.setText(String.valueOf(isNewUserWithNoMissions()));

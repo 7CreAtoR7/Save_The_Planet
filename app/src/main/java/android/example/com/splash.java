@@ -3,6 +3,7 @@ package android.example.com;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ public class splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
 
@@ -30,16 +32,16 @@ public class splash extends AppCompatActivity {
         splashimg = findViewById(R.id.img);
         lottieAnimationView = findViewById(R.id.lottie);
 
-        splashimg.animate().translationY(-2500).setDuration(1000).setStartDelay(5000);
-        appname.animate().translationY(-2000).setDuration(1000).setStartDelay(5000);
-        lottieAnimationView.animate().translationY(1500).setDuration(1000).setStartDelay(5000);
+        splashimg.animate().translationY(-2500).setDuration(1000).setStartDelay(3000);
+        appname.animate().translationY(-2000).setDuration(1000).setStartDelay(3000);
+        lottieAnimationView.animate().translationY(1500).setDuration(1000).setStartDelay(3000);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 startActivity(new Intent(splash.this, MainActivity.class));
             }
-        }, 6000);
+        }, 4000);
 
 
     }

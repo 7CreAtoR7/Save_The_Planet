@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,13 +50,11 @@ public class MainActivity extends AppCompatActivity {
         savedText = Name.getText().toString();
         ed.putString(SAVED_TEXT, savedText);
         ed.apply();
-        Toast.makeText(MainActivity.this, "Сохраняем имя пользователя: " + savedText, Toast.LENGTH_SHORT).show();
     }
 
     private String isNewUser() {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         savedText = sPref.getString(SAVED_TEXT, "");
-        Toast.makeText(MainActivity.this, "Загружаем имя пользователя: " + savedText, Toast.LENGTH_SHORT).show();
         return savedText;
     }
 
@@ -73,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setContentView(R.layout.activity_main);
 
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (list_names.contains(userName)) {
-                    textViewResult.setText("Такое имя уже занято");
+                    textViewResult.setText(" Такое имя уже занято");
                 } else {
                     saveUserName();
 
@@ -165,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
-
+                            textViewResult.setText("Нет интернет соединения");
                         }
                     });
 
@@ -179,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Post2>> call, Throwable t) {
-                textViewResult.setText(t.getMessage());
+                textViewResult.setText("Нет интернет соединения");
             }
         });
 
