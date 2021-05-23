@@ -4,36 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#A4DBE8">
+    android:background="#A4DBE8"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/is_new_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:text="   Введите Ваше имя:"
-        android:background="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
-        android:textSize="25sp"/>
-
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="Введите Ваше имя:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 
     <EditText
         android:id="@+id/enterName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/is_new_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/white"
         android:ems="10"
         android:hint="Имя"
-        android:maxLength="20"
-        android:background="@color/white"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
         android:inputType="textPersonName"
+        android:maxLength="20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -45,15 +46,16 @@
         android:id="@+id/btnLogin"
         android:layout_width="158dp"
         android:layout_height="53dp"
-        android:text="Далее"
+        android:layout_below="@+id/enterName"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="100dp"
+        android:enabled="false"
+        android:text="Далее"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterName"
-        app:layout_constraintVertical_bias="0.192"
-        android:enabled="false"/>
+        app:layout_constraintVertical_bias="0.192" />
 
 
 </RelativeLayout>

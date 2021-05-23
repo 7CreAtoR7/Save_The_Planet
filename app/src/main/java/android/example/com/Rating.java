@@ -3,19 +3,15 @@ package android.example.com;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import pl.droidsonroids.gif.GifImageView;
@@ -26,9 +22,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Rating extends AppCompatActivity {
-    private TextView textViewResult, no_connection, my_top;
+    private TextView textViewResult, no_connection;
     public static int count_users = 0;
-    public int place = 0, res_place, c2 = 0, pl2 = 0;
+    public int place = 0, c2 = 0;
 
     @Override
     protected void onStart() {
@@ -58,7 +54,6 @@ public class Rating extends AppCompatActivity {
 
                 List<Post> posts = response.body();
 
-
                 for (Post post : posts) {
                     c2++;
                     if (post.getName().equals(MainActivity.savedText)) {
@@ -77,22 +72,19 @@ public class Rating extends AppCompatActivity {
                             content += "   Очки: " + post.getScore() + "\n\n\n\n";
                         } else content += "    Очки: " + post.getScore() + "\n\n\n\n";
                         textViewResult.append(content);
-                        System.out.println(content);
                     }
                 }
 
-                System.out.println(place);
-                if (place > 10) {
-                    TextView my_top = findViewById(R.id.position_in_top);
-                    my_top.setText("Вы на " + place + " месте");
-                }
+
+                TextView my_top = findViewById(R.id.position_in_top);
+                my_top.setText("Вы на " + place + " месте");
 
             }
 
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                no_connection.setText("Нет интернет соединения"); // textViewResult.setText(t.getMessage());
+                no_connection.setText("Нет интернет соединения");
                 gifImageView.setVisibility(View.VISIBLE);
             }
         });
@@ -130,5 +122,13 @@ public class Rating extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+
+    @Override
+    protected void onPause() { // при смене активности count=0, чтобы выводил каждый раз топ-10,
+        // а не увеличивался до бесконечности при каждом открытии активности
+        super.onPause();
+        count_users = 0;
     }
 }

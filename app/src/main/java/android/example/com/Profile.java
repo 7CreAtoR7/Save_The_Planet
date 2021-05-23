@@ -60,7 +60,6 @@ public class Profile extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,26 +68,26 @@ public class Profile extends AppCompatActivity {
 
         anim = AnimationUtils.loadAnimation(this, R.anim.cloud_anim);
 
-
-        TextView count_done_challengers = (TextView) findViewById(R.id.count_done_ex);
-        count_done_challengers.setText(String.valueOf(isNewUserWithNoMissions()));
-
-        TextView name_of_level = (TextView) findViewById(R.id.name_level);
-        if (isNewUserWithNoMissions() < 5) {
-            name_of_level.setText("«Новичок»");
-        } else if (isNewUserWithNoMissions() >= 5 && isNewUserWithNoMissions() < 7) {
-            name_of_level.setText("«Борец за природу»");
-        } else if (isNewUserWithNoMissions() >= 7){
-            name_of_level.setText("«Эколог»");
-        }
-
         TextView count_scores = (TextView) findViewById(R.id.count_exp);
         count_scores.setText((String.valueOf(isNewUserWithNoScores())));
 
         TextView username = (TextView) findViewById(R.id.user_name);
         String name_input = String.valueOf(MainActivity.savedText);
-        username.setText(name_input);
 
+
+        TextView count_done_challengers = (TextView) findViewById(R.id.count_done_ex);
+        count_done_challengers.setText(String.valueOf(isNewUserWithNoMissions()));
+
+        TextView name_of_level = (TextView) findViewById(R.id.name_level);
+        if (isNewUserWithNoMissions() < 3) { // чем больше выполненных заданий, тем выше уровень пользователя
+            name_of_level.setText("«Новичок»");
+        } else if (isNewUserWithNoMissions() >= 3 && isNewUserWithNoMissions() < 7) {
+            name_of_level.setText("«Борец за природу»");
+        } else if (isNewUserWithNoMissions() >= 7) {
+            name_of_level.setText("«Эколог»");
+        }
+
+        username.setText(name_input);
 
         getSupportActionBar().hide();
 

@@ -27,22 +27,25 @@ public class SecondActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        listView=(ListView)findViewById(R.id.listview1);
-        String []listviewitems=new String[]{
+        listView = (ListView) findViewById(R.id.listview1);
+        String[] listviewitems = new String[]{
 
-                "Задание #1", "Задание #2", "Интересная статья #1", "Задание #3", "Совет #1", "Интересная статья #2", "Задание #4", "Интересные факты #1", "Интересная статья #3", "Интересные факты #2"
+                "Задание #1", "Задание #2", "Интересная статья #1", "Задание #3", "Совет #1",
+                "Интересная статья #2", "Задание #4", "Интересные факты #1", "Интересная статья #3",
+                "Интересные факты #2"
         };
 
-        ArrayAdapter<String>adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2, android.R.id.text1,listviewitems);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2, android.R.id.text1, listviewitems);
         listView.setAdapter(adapter);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
+            @Override // обрабатываем нажатие на задание (открывается каждый раз одна и та же
+            // активность, где скрыты или видны определенные элементы (зависит от названия задания))
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String Templistview=listviewitems[position].toString();
+                String Templistview = listviewitems[position].toString();
 
-                Intent intent=new Intent(SecondActivity.this, Itemactivity.class);
+                Intent intent = new Intent(SecondActivity.this, Itemactivity.class);
                 intent.putExtra("Listviewclickvalue", Templistview);
 
                 startActivity(intent);
@@ -54,6 +57,7 @@ public class SecondActivity extends AppCompatActivity {
 
         bottomNavigationView.setSelectedItemId(R.id.challenges);
 
+        // навигация между активностями (профиль, задания, рейтинг)
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

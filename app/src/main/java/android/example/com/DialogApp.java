@@ -7,16 +7,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class DialogApp extends AppCompatDialogFragment {
 
-    private EditText editTextUsername;
-    private EditText editTextPassword;
     private DialogAppListener listener;
 
     @Override
@@ -47,11 +43,11 @@ public class DialogApp extends AppCompatDialogFragment {
         try {
             listener = (DialogAppListener) context;
         } catch (ClassCastException e) {
-            throw  new ClassCastException(context.toString() + "must implement DialogAppListener");
+            throw new ClassCastException(context.toString() + "must implement DialogAppListener");
         }
     }
 
-    public interface DialogAppListener{
+    public interface DialogAppListener {
         void applyTexts();
     }
 

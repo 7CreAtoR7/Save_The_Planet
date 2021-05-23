@@ -20,7 +20,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Itemactivity extends AppCompatActivity implements DialogApp.DialogAppListener{
+public class Itemactivity extends AppCompatActivity implements DialogApp.DialogAppListener {
+    TextView textView, main_info_mission, coins, is_complete_mis;
+    Button btn_done;
+    ImageView imageView;
+    Boolean is_mis_complete = false;
+    SharedPreferences sPref;
 
     private static final String SAVED_MISS1 = "";
     private static final String SAVED_MISS2 = "";
@@ -35,13 +40,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
     private static final String SAVED_MISS10 = "";
     private static final String SAVED_ALL_SCORES = "";
 
-    TextView textView, main_info_mission, coins, is_complete_mis, name_mission;
-    Button btn_done;
 
-    ImageView imageView;
-
-    Boolean is_mis_complete=false;
-    SharedPreferences sPref;
     public int count_scores;
     public static String name_for_save;
     public static String number_mission1;
@@ -58,7 +57,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
     public static int count_compl_mis;
     public static int count_all_scores;
 
-    private Integer getCountCompleteMissions() { // получаем сколько заданий всего выполнил
+    private Integer getCountCompleteMissions() { // получаем количесвто выполненных заданий
         sPref = getSharedPreferences("MyCountMissions", MODE_PRIVATE);
         String missions_count = sPref.getString(SAVED_COMPLETE_MISSIONS, "");
         if (missions_count.isEmpty()) {
@@ -106,11 +105,11 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
 
         getSupportActionBar().hide();
 
-        textView=(TextView)findViewById(R.id.txtitem);
+        textView = (TextView) findViewById(R.id.txtitem);
 
-        is_complete_mis=(TextView)findViewById(R.id.is_complete);
+        is_complete_mis = (TextView) findViewById(R.id.is_complete);
 
-        String Tempholder=getIntent().getStringExtra("Listviewclickvalue");
+        String Tempholder = getIntent().getStringExtra("Listviewclickvalue");
 
         // обрабатываем каждое задание:
 
@@ -120,10 +119,10 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.INVISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Энергетический сектор является причиной большей части выбросов парниковых газов, поэтому он должен быть ключевой темой в действиях, направленных на защиту климата!\n\nЗадание: установите энергосберегающую лампочку");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=100;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_1));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 100;
             coins.setText(String.valueOf(count_scores));
 
             btn_done = (Button) findViewById(R.id.button_complete_mission);
@@ -136,7 +135,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone1().isEmpty()){
+            if (!isMissionAlreadyDone1().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -147,10 +146,10 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.INVISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Посадка деревьев считается одной из важнейших мер в борьбе с изменением климата.\n\nПосадите как можно больше деревьев!");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=300;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_2));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 300;
             coins.setText(String.valueOf(count_scores));
 
             btn_done = (Button) findViewById(R.id.button_complete_mission);
@@ -163,7 +162,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone2().isEmpty()){
+            if (!isMissionAlreadyDone2().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -173,14 +172,13 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.INVISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Интересные факты:\nКаждый год 21-го века входит в число самых жарких начиная с 1880 года.\nГлобальное потепление может изменить океанические течения, что приведёт к ледниковому периоду в Европе.\nАрктические льды стремительно тают. К 2040 году ожидается полное отсутствие льда в летний период.");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=150;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_3));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 150;
             coins.setText(String.valueOf(count_scores));
 
             btn_done = (Button) findViewById(R.id.button_complete_mission);
-            btn_done.setText("Ознакомился");
             btn_done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -190,7 +188,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone3().isEmpty()){
+            if (!isMissionAlreadyDone3().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -200,10 +198,10 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.INVISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Избавьтесь от полиэтиленовых пакетов, ведь они не подлежат биологическому разложению, а значит несут опасность для окружающей среды!");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=250;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_4));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 250;
             coins.setText(String.valueOf(count_scores));
 
             btn_done = (Button) findViewById(R.id.button_complete_mission);
@@ -216,7 +214,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone4().isEmpty()){
+            if (!isMissionAlreadyDone4().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -226,14 +224,13 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.INVISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Являясь крупнейшим потребителем природного топлива, автотранспорт существенно влияет на увеличение концентрации в атмосфере углекислого газа и, тем самым, на процесс глобального потепления климата в мире. Поэтому предпочтительнее использовать общественный транспорт или велосипед на небольшом расстоянии.");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=50;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_5));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 50;
             coins.setText(String.valueOf(count_scores));
 
             btn_done = (Button) findViewById(R.id.button_complete_mission);
-            btn_done.setText("Понял");
             btn_done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -243,7 +240,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone5().isEmpty()){
+            if (!isMissionAlreadyDone5().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -253,10 +250,10 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.VISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Глобальное потепление грозит вымиранием белым медведям.\nПоэтому в 2008 году полярные медведи были причислены к списку видов, находящихся под угрозой.");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=100;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_6));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 100;
             coins.setText("");
 
             TextView textView = findViewById(R.id.coins_count_txt);
@@ -273,7 +270,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone6().isEmpty()){
+            if (!isMissionAlreadyDone6().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -284,10 +281,10 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.INVISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Пластик может разлагаться более 300 лет, что несомненно несёт вред окружающей среде.\n\nЗадание: рассортируйте 1 кг пластика по типам и отнесите на переработку в пункт приёма.");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=700;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_7));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 700;
             coins.setText(String.valueOf(count_scores));
 
             btn_done = (Button) findViewById(R.id.button_complete_mission);
@@ -301,7 +298,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone7().isEmpty()){
+            if (!isMissionAlreadyDone7().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -312,14 +309,13 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.INVISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Около 75% ежегодного прироста содержания углекислого газа в атмосфере характеризуется сжиганием ископаемого топлива.\nФлора и фауна приспосабливается под климат, поэтому многие виды животных и растений могут исчезнуть навсегда.\nНапример, к 2050 году популяция белых медведей может сократиться на 30%.");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=50;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_8));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 50;
             coins.setText(String.valueOf(count_scores));
 
             btn_done = (Button) findViewById(R.id.button_complete_mission);
-            btn_done.setText("Ознакомился");
             btn_done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -329,7 +325,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone8().isEmpty()){
+            if (!isMissionAlreadyDone8().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -339,10 +335,10 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.INVISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Основная опасность перемены климата в том, что повышение температуры океана заставляет таять арктические и антарктические ледники; это повышает уровень моря.\nПотребление все большего количества электроэнергии радикально увеличивает выброс парниковых газов.");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=800;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_9));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 200;
             coins.setText(String.valueOf(count_scores));
 
             btn_done = (Button) findViewById(R.id.button_complete_mission);
@@ -355,7 +351,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone9().isEmpty()){
+            if (!isMissionAlreadyDone9().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -365,10 +361,10 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             imageView.setVisibility(View.INVISIBLE);
 
             textView.setText(Tempholder);
-            main_info_mission=(TextView)findViewById(R.id.mission_description);
-            main_info_mission.setText("Повышение температуры служит причиной высвобождения еще большего количества парниковых газов из льда и почвы.\nВыбросы парниковых газов, останутся в атмосфере в течение многих лет, делая невозможным устранение проблемы глобального потепления на протяжении нескольких десятилетий.");
-            coins=(TextView)findViewById(R.id.coins_count);
-            count_scores=1000;
+            main_info_mission = (TextView) findViewById(R.id.mission_description);
+            main_info_mission.setText(getApplicationContext().getString(R.string.mission_10));
+            coins = (TextView) findViewById(R.id.coins_count);
+            count_scores = 250;
             coins.setText(String.valueOf(count_scores));
 
             btn_done = (Button) findViewById(R.id.button_complete_mission);
@@ -381,7 +377,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-            if (!isMissionAlreadyDone10().isEmpty()){
+            if (!isMissionAlreadyDone10().isEmpty()) {
                 is_complete_mis.setText("Задание выполнено!");
                 btn_done.setVisibility(View.GONE);
             }
@@ -552,14 +548,13 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
-    UsersInfoUpdate controller =retrofit.create(UsersInfoUpdate.class);
-
+    UsersInfoUpdate controller = retrofit.create(UsersInfoUpdate.class);
 
 
     @Override
     public void applyTexts() {
         is_complete_mis.setText("Задание выполнено");
-        is_mis_complete=true;
+        is_mis_complete = true;
         btn_done.setVisibility(View.GONE); // спрятали кнопку после выполнения задания
 
         if (name_for_save.equals("Задание #1")) {
@@ -572,18 +567,17 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             c_scores += 100;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override
                 public void onFailure(Call<Boolean> call, Throwable t) {
                 }
             });
-
 
 
         } else if (name_for_save.equals("Задание #2")) {
@@ -596,11 +590,11 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             c_scores += 300;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override
@@ -618,11 +612,11 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             c_scores += 150;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override
@@ -640,11 +634,11 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             c_scores += 250;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override
@@ -662,11 +656,11 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             c_scores += 50;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override
@@ -674,8 +668,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-        }
-        else if (name_for_save.equals("Интересная статья #2")) {
+        } else if (name_for_save.equals("Интересная статья #2")) {
             is_complete_mis.setText("Задание выполнено!");
             saveCompletedMission6();
             int c = getCountCompleteMissions();
@@ -685,11 +678,11 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             c_scores += 100;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override
@@ -697,8 +690,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-        }
-        else if (name_for_save.equals("Задание #4")) {
+        } else if (name_for_save.equals("Задание #4")) {
             is_complete_mis.setText("Задание выполнено!");
             saveCompletedMission7();
             int c = getCountCompleteMissions();
@@ -708,11 +700,11 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             c_scores += 700;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override
@@ -720,8 +712,7 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-        }
-        else if (name_for_save.equals("Интересные факты #1")) {
+        } else if (name_for_save.equals("Интересные факты #1")) {
             is_complete_mis.setText("Задание выполнено!");
             saveCompletedMission8();
             int c = getCountCompleteMissions();
@@ -731,11 +722,11 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
             c_scores += 100;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override
@@ -743,22 +734,21 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-        }
-        else if (name_for_save.equals("Интересная статья #3")) {
+        } else if (name_for_save.equals("Интересная статья #3")) {
             is_complete_mis.setText("Задание выполнено!");
             saveCompletedMission9();
             int c = getCountCompleteMissions();
             c += 1;
             saveUserMissions(c);
             int c_scores = getCountScores();
-            c_scores += 800;
+            c_scores += 200;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override
@@ -766,22 +756,21 @@ public class Itemactivity extends AppCompatActivity implements DialogApp.DialogA
                 }
             });
 
-        }
-        else if (name_for_save.equals("Интересные факты #2")) {
+        } else if (name_for_save.equals("Интересные факты #2")) {
             is_complete_mis.setText("Задание выполнено!");
             saveCompletedMission10();
             int c = getCountCompleteMissions();
             c += 1;
             saveUserMissions(c);
             int c_scores = getCountScores();
-            c_scores += 1000;
+            c_scores += 250;
             saveUserScores(c_scores);
 
-            Call<Boolean> call=controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
+            Call<Boolean> call = controller.update(new UsersUpdate(MainActivity.savedText, c_scores));
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    Boolean result=response.body();
+                    Boolean result = response.body();
                 }
 
                 @Override

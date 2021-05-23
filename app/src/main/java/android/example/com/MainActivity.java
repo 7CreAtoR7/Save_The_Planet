@@ -28,20 +28,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textViewResult;
-
-    public boolean is_new_username;
-
-    private static List<String> list_names = new ArrayList<>();
-
-
-    SharedPreferences sPref;
-
     private EditText Name;
     private Button Login;
 
+    SharedPreferences sPref;
+    public static String savedText; // имя пользователя, сохраняемое с shared preferences
+
     final String SAVED_TEXT = "saved_text";
 
-    public static String savedText;
+    private static List<String> list_names = new ArrayList<>();
 
 
     private void saveUserName() {
@@ -97,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        @Override
+        @Override // если edittext пустой (т.е. не введено имя пользователя), кнопка не активна
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String usernameInput = Name.getText().toString().trim();
             Login.setEnabled(!usernameInput.isEmpty());
@@ -129,14 +124,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 List<Post2> posts = response.body();
-                // добавим имена в отдельный список
+                // добавим полученные имена с сервера в отдельный список
                 for (Post2 post_in_list : posts) {
                     String db_name = post_in_list.getName();
                     list_names.add(db_name);
                 }
-
-                System.out.println(list_names);
-                System.out.println("В списке имя " + userName + ":" + list_names.contains(userName));
 
 
                 if (list_names.contains(userName)) {
@@ -164,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
-                            textViewResult.setText("Нет интернет соединения");
+                            textViewResult.setText("Пожалуйста, проверьте интернет-подключение и повторите попытку");
                         }
                     });
 
@@ -178,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Post2>> call, Throwable t) {
-                textViewResult.setText("Нет интернет соединения");
+                textViewResult.setText("Пожалуйста, проверьте интернет-подключение и повторите попытку");
             }
         });
 

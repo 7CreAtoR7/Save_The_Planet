@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
@@ -16,8 +15,6 @@ public class splash extends AppCompatActivity {
 
     ImageView appname, splashimg;
     LottieAnimationView lottieAnimationView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
