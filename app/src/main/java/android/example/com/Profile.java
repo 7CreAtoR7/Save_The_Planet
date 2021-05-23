@@ -22,7 +22,6 @@ public class Profile extends AppCompatActivity {
     private static final String SAVED_COMPLETE_MISSIONS = "";
     private static final String SAVED_ALL_SCORES = "";
     SharedPreferences sPref;
-
     public static String missions_;
     public static Integer missions;
 
